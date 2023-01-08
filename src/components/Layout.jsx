@@ -19,10 +19,8 @@ const Layout = () => {
                         to="/">Analisis del estado actual</Link>
                     <Link
                         className={`${location.pathname === "/compra" ?  "text-white font-bold" : "text-teal-400"} text-2xl block mt-2 hover:text-green-200`}
-                        to="/compra">Compra</Link>
-                    <Link
-                        className={`${location.pathname === "/venta" ?  "text-white font-bold" : "text-teal-400"} text-2xl block mt-2 hover:text-green-200`}
-                        to="/venta">Venta</Link>
+                        to="/compra">Compra/Venta</Link>
+
                     <Link
                         className={`${location.pathname === "/historial" ?  "text-white font-bold" : "text-teal-400"} text-2xl block mt-2 hover:text-green-200`}
                         to="/historial">Historial</Link>

@@ -1,4 +1,4 @@
-export let obtenerCompras = async() => {
+export let obtenerCompras = async () => {
 
     const respuesta = await fetch(import.meta.env.VITE_API_URL, {
         method: 'GET',
@@ -10,7 +10,7 @@ export let obtenerCompras = async() => {
     return await respuesta.json()
 }
 
-export let obtenerCompra = async(id) => {
+export let obtenerCompra = async (id) => {
 
     const respuesta = await fetch(`${import.meta.env.VITE_API_URL2}/${id}`, {
         method: 'GET',
@@ -53,6 +53,7 @@ export async function actualizarCompra(id, datos) {
         console.log(error)
     }
 }
+
 export async function eliminarCompra(id) {
     try {
         const respuesta = await fetch(`${import.meta.env.VITE_API_URL2}/${id}`, {
@@ -65,4 +66,35 @@ export async function eliminarCompra(id) {
     } catch (error) {
         console.log(error)
     }
+}
+
+export let obtenerPrecioBtc = async () => {
+
+    const respuestaBtc = await fetch(import.meta.env.VITE_API_BTC, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+    return await respuestaBtc.json()
+}
+export let obtenerPrecioEth = async () => {
+
+    const respuestaEth = await fetch(import.meta.env.VITE_API_ETH, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+    return await respuestaEth.json()
+}
+export let obtenerPrecioUsdt = async () => {
+
+    const respuestaUsdt = await fetch(import.meta.env.VITE_API_USDT, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+    return await respuestaUsdt.json()
 }
