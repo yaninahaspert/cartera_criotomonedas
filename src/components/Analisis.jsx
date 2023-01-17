@@ -34,7 +34,6 @@ const Analisis = () => {
             calcularBalanceFinanciero(balance)
             setCargando(false)
         }
-
         establecerEstadoFinanciero()
     }, [])
 
