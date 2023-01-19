@@ -41,8 +41,8 @@ const Operacion = ({compra}) => {
                 :(
 
             <table
-                className="w-h-120 mbox-content w-1/2  rounded-2xl mx-auto my-20  text-center backdrop-blur-lg bg-white/30 shadow mt-5 table-auto">
-                <thead className="bg-gray-400 text-white text-2xl">
+                className=" w-10/12 mx-auto my-20  text-center backdrop-blur-lg bg-white/30 mt-5 ">
+                <thead className="bg-gray-400 text-black text-xl">
                 <tr>
                     <th className="p-2">TIPO</th>
                     <th className="p-2">CANTIDAD</th>
@@ -55,23 +55,23 @@ const Operacion = ({compra}) => {
                 <tbody>
                 <tr className="border-b">
                     <td className="p-6 space-y-2">
-                        <p className="text-2xl text-gray-800">{crypto_code}</p>
+                        <p className="text-2xl text-black">{crypto_code}</p>
                     </td>
                     <td className="p-6 space-y-2">
-                        <p className="text-2xl text-gray-800">{crypto_amount}</p>
+                        <p className="text-2xl text-black">{crypto_amount}</p>
                     </td>
                     <td className="p-6 space-y-2">
-                        <p className="text-2xl text-gray-800">{money}</p>
+                        <p className="text-2xl text-black">{money}</p>
                     </td>
                     <td className="p-6 space-y-2">
-                        <p className="text-2xl text-gray-800">{formatearFecha(datetime)}</p>
+                        <p className="text-2xl text-black">{formatearFecha(datetime)}</p>
                     </td>
                     <td className="p-6 space-y-2">
-                        <p className="text-2xl text-gray-800">{action === "sale" ? "Venta" : "Compra"}</p>
+                        <p className="text-2xl text-black">{action === "sale" ? "Venta" : "Compra"}</p>
                     </td>
                     <td>
 
-                        <button type="button" className="text-blue-600 hover:text-blue-700 uppercase font-bold text-2xl"
+                        <button type="button" className="w-10/12 text-sm bg-white/60 hover:bg-blue-500 text-blue-700 font-bold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
                                 onClick={() => navigate(`/compra/${_id}/editar`)}
                         >
                             Editar
@@ -86,7 +86,7 @@ const Operacion = ({compra}) => {
                                 }
                             }}>
                             <button type="submit"
-                                    className="text-red-600 hover:text-red-700 uppercase font-bold text-2xl"
+                                    className=" mb-3 w-10/12 text-sm bg-white/60 hover:bg-red-500 text-red-700 font-bold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded"
                             >
                                 Eliminar
                             </button>

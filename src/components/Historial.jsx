@@ -9,10 +9,13 @@ const Historial = () => {
 
 
     useEffect(() => {
+
+        const usuarioLS = localStorage.getItem("usuario") ?? "";
+
         let obtenerCompras = async () => {
             setCargando(true)
 
-            const respuesta = await fetch(import.meta.env.VITE_API_URL, {
+            const respuesta = await fetch(`https://laboratorio3-f36a.restdb.io/rest/transactions?q={"user_id": "${usuarioLS}"}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -24,6 +27,7 @@ const Historial = () => {
             setCargando(false)
 
 
+
         }
         obtenerCompras()
     }, [])
@@ -32,12 +36,12 @@ const Historial = () => {
     return (
         <div
             className=" text-center text-white text-4xl">
-            <p className="font-bold font-black">Historial</p>
+            <p className="font-bold font-black mt-5">Historial</p>
             <div className="flex justify-center justify-items-center mt-14">
                 {cargando && <Spinner/>}
             </div>
 
-            {resultado ? (
+            {resultado && (
                 <>
                     {resultado.map(compra => (
                         <Operacion
@@ -46,8 +50,6 @@ const Historial = () => {
                     ))}
                 </>
 
-            ) : (
-                <div className="text-center mt-10 text-black">No hay ningún cliente registrado</div>
             )}
 
         </div>

@@ -9,6 +9,7 @@ import Analisis from "./components/Analisis.jsx";
 import EditarCompra,{loader as loaderEditar} from "./components/EditarCompra";
 import Operacion from "./components/Operacion.jsx"
 import {action as eliminarAction} from "./components/Operacion.jsx";
+import Bienvenida from "./components/Bienvenida.jsx";
 
 
 
@@ -19,14 +20,12 @@ const router=createBrowserRouter([
         children:[
             {
                 index: true,
-                element:<Analisis/>,
+                element:<Bienvenida/>,
             },
             {
                 path: "/historial",
                 element: <Historial/>,
-
             },
-
             {
                 path: "/compra",
                 element: <Compra/>,
@@ -35,15 +34,15 @@ const router=createBrowserRouter([
                 path:"/compra/:compraId/editar",
                 element:<EditarCompra/>,
                 loader: loaderEditar
-
             },
             {
                 path:"/compra/:compraId/eliminar",
                 action: eliminarAction
             },
-
-
-
+            {
+                path: "/analisis",
+                element: <Analisis/>,
+            },
         ]
     },
 ])

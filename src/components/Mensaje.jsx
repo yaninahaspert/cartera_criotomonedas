@@ -1,6 +1,6 @@
 const Mensaje=({mensaje})=>{
     return(
-        <div className="text-center my-4 text-2xl bg-red-600 text-white p-3 uppercase">{mensaje}
+        <div className="text-center my-3 text-md bg-red-600 text-white p-3 uppercase">{mensaje}
 
         </div>
     )

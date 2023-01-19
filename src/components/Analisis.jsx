@@ -123,12 +123,12 @@ const Analisis = () => {
 
 
     return (
-        <div>
+        <div className="my-">
             {cargando ? (<Spinner2/>) :
                 (
                     <>
                         <table
-                            className="w-h-120 mbox-content w-1/2   mx-auto my-20  text-center backdrop-blur-lg bg-white/30 shadow mt-5 table-auto">
+                            className="w-h-120 mbox-content w-1/2 shadow-md  mx-auto my-20 rounded-md text-center backdrop-blur-lg bg-white/30 shadow mt-5 table-auto">
                             <thead className="bg-gray-400 text-white text-md">
                             <tr>
                                 <th className="p-2">TIPO DE CRIPTOMONEDA</th>

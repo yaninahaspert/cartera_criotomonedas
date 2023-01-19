@@ -15,7 +15,7 @@ const Formulario = ({compraAEditar}) => {
     const [crypto_amount, setCrypto_amount] = useState(0)
     const [datetime, setDatatime] = useState("")
     const [action, setAction] = useState("")
-    const [user_id, setUser_Id] = useState("yanina")
+    const [user_id, setUser_Id] = useState(localStorage.getItem("usuario") ?? "")
     const [_id, set_id] = useState("")
 
     const objetoCompra = async (compras) => {
