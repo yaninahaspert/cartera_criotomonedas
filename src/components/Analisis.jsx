@@ -3,6 +3,8 @@ import {obtenerPrecioBtc, obtenerPrecioEth, obtenerPrecioUsdt} from "../data/end
 import Spinner2 from "./Spinner2.jsx";
 
 const Analisis = () => {
+    const [exchange, setExchange] = useState("")
+
     const [cantidadBitcoin, setCantidadBitcoin] = useState(0)
     const [cantidadEtherum, setCantidadEtherum] = useState(0)
     const [cantidadUSDT, setCantidadUSDT] = useState(0)
@@ -37,12 +39,14 @@ const Analisis = () => {
         establecerEstadoFinanciero()
     }, [])
 
+
     const calcularBalance = (transacciones) => {
         const bitconCompra = transacciones.filter(x => x.action === "purchase").filter(x => x.crypto_code === "Bitcoin")
             .map(elemento => Number(elemento.crypto_amount)).reduce((a, b) => a + b, 0)
 
         const bitconVenta = transacciones.filter(x => x.action === "sale").filter(x => x.crypto_code === "Bitcoin")
             .map(elemento => Number(elemento.crypto_amount)).reduce((a, b) => a + b, 0)
+
         const restaCantidadBitcoin = bitconCompra - bitconVenta
         setCantidadBitcoin(restaCantidadBitcoin.toFixed(2))
 
@@ -51,6 +55,7 @@ const Analisis = () => {
 
         const etherumVenta = transacciones.filter(x => x.action === "sale").filter(x => x.crypto_code === "Ethereum")
             .map(elemento => Number(elemento.crypto_amount)).reduce((a, b) => a + b, 0)
+
         const restaCantidadEtherum = etherumCompra - etherumVenta
         setCantidadEtherum(restaCantidadEtherum.toFixed(2))
 
@@ -59,6 +64,7 @@ const Analisis = () => {
 
         const usdtVenta = transacciones.filter(x => x.action === "sale").filter(x => x.crypto_code === "USDT")
             .map(elemento => Number(elemento.crypto_amount)).reduce((a, b) => a + b, 0)
+
         const restaCantidadUsdt = usdtCompra - usdtVenta
         setCantidadUSDT(restaCantidadUsdt.toFixed(2))
 
@@ -68,6 +74,7 @@ const Analisis = () => {
 
         const usdtVentaMoney = transacciones.filter(x => x.action === "sale").filter(x => x.crypto_code === "USDT")
             .map(elemento => Number(elemento.money)).reduce((a, b) => a + b, 0)
+
         const restaCantidadUsdtMoney = (usdtCompraMoney - usdtVentaMoney).toFixed(2)
 
         const bitcoinCompraMoney = transacciones.filter(x => x.action === "purchase").filter(x => x.crypto_code === "Bitcoin")
@@ -94,8 +101,19 @@ const Analisis = () => {
             ethereumMoney: restaCantidadEthereumMoney
         }
     }
+
+    let VITE_API_BTC = "";
+    const handleConsultarExchange = async () => {
+        if (exchange !== undefined) {
+            let precio = await obtenerPrecioBtc(exchange)
+            alert(JSON.stringify(precio));
+        }
+    }
+
+
     let calcularBalanceFinanciero = async (balance) => {
-        const respuestaPrecioBitcoin = await obtenerPrecioBtc()
+        console.log(balance);
+        const respuestaPrecioBitcoin = await obtenerPrecioBtc(exchange)
         const dineroDisponibleBitcoin = respuestaPrecioBitcoin.totalBid * balance.bitcoin
         setDineroBitcoin(dineroDisponibleBitcoin.toFixed(2))
 
@@ -106,19 +124,15 @@ const Analisis = () => {
         const respuestaPrecioUSDT = await obtenerPrecioUsdt()
         const dineroDisponibleUSDT = respuestaPrecioUSDT.totalBid * balance.usdt
         setDineroUSDT(dineroDisponibleUSDT.toFixed(2))
-//------------
-        const gananciaBTN=(dineroDisponibleBitcoin-balance.bitcoinMoney).toFixed(2)
+
+        const gananciaBTN = (dineroDisponibleBitcoin - balance.bitcoinMoney).toFixed(2)
         setGananciaBitcoin(gananciaBTN)
 
-        const gananciaUSDT=(dineroDisponibleUSDT-balance.usdtMoney).toFixed(2)
+        const gananciaUSDT = (dineroDisponibleUSDT - balance.usdtMoney).toFixed(2)
         setGananciaUSDT(gananciaUSDT)
 
-        const gananciaETH=(dineroDisponibleEtherum-balance.ethereumMoney).toFixed(2)
+        const gananciaETH = (dineroDisponibleEtherum - balance.ethereumMoney).toFixed(2)
         setGananciaEtherum(gananciaETH)
-
-
-
-
     }
 
 
@@ -129,10 +143,10 @@ const Analisis = () => {
                     <>
                         <table
                             className="w-h-120 mbox-content w-1/2 shadow-md  mx-auto my-20 rounded-md text-center backdrop-blur-lg bg-white/30 shadow mt-5 table-auto">
-                            <thead className="bg-gray-400 text-white text-md">
+                            <thead className="bg-gray-400 text-black text-md">
                             <tr>
                                 <th className="p-2">TIPO DE CRIPTOMONEDA</th>
-                                <th className="p-2">CANTIDAD </th>
+                                <th className="p-2">CANTIDAD</th>
                                 <th className="p-2">DINERO ACTUAL</th>
                             </tr>
 
@@ -159,24 +173,33 @@ const Analisis = () => {
                         </table>
                         <table
                             className="w-h-120 mbox-content w-1/2  mx-auto my-20  text-center backdrop-blur-lg bg-white/30 shadow mt-5 table-auto">
-                            <thead className="bg-gray-400 text-white text-md">
+                            <thead className="bg-gray-400 text-black text-md">
                             <tr>
                                 <th className="p-2">TIPO DE CRIPTOMONEDA</th>
-                                <th className="p-2">GANANCIAS/PÉRDIDAS</th>
+                                <th className="p-2">
+                                    <select value={exchange}
+                                            onChange={e => setExchange(e.target.value)}>
+                                        <option value="satoshitango" onClick={handleConsultarExchange}>SATOSHITANGO
+                                        </option>
+                                        <option value="argenbtc" onClick={handleConsultarExchange}>ARGENBTC</option>
+                                    </select>
+
+
+                                </th>
                             </tr>
                             </thead>
                             <tbody className="text-2xl">
 
-                            <tr className={gananciaBitcoin>=0? "bg-green-400": "bg-red-700"}>
+                            <tr className={gananciaBitcoin >= 0 ? "bg-green-400" : "bg-red-700"}>
                                 <td>BITCOIN</td>
                                 <td>{gananciaBitcoin}</td>
 
                             </tr>
-                            <tr className={gananciaUSDT>=0? "bg-green-400": "bg-red-700"}>
+                            <tr className={gananciaUSDT >= 0 ? "bg-green-400" : "bg-red-700"}>
                                 <td>USDT</td>
                                 <td>{gananciaUSDT}</td>
                             </tr>
-                            <tr className={gananciaEtherum>=0? "bg-green-400": "bg-red-700"}>
+                            <tr className={gananciaEtherum >= 0 ? "bg-green-400" : "bg-red-700"}>
                                 <td>ETHERUM</td>
                                 <td>{gananciaEtherum}</td>
                             </tr>

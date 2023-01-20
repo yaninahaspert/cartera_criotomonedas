@@ -1,3 +1,5 @@
+
+
 export let obtenerCompras = async () => {
 
     const respuesta = await fetch(import.meta.env.VITE_API_URL, {
@@ -68,9 +70,9 @@ export async function eliminarCompra(id) {
     }
 }
 
-export let obtenerPrecioBtc = async () => {
-
-    const respuestaBtc = await fetch(import.meta.env.VITE_API_BTC, {
+export let obtenerPrecioBtc = async (proveedor) => {
+    console.log(proveedor)
+    const respuestaBtc = await fetch(`https://criptoya.com/api/${proveedor}/btc/ars`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
